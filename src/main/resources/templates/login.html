@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>PetCareBook Login</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f6f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-box {
+            background: white;
+            padding: 35px;
+            width: 350px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .error {
+            color: red;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-box">
+
+    <h1>🐾 PetCareBook</h1>
+
+    <p style="text-align:center">
+        Pet Vaccination Reminder
+    </p>
+
+    <p class="error" th:if="${param.error}">
+        Invalid username or password
+    </p>
+
+    <form action="/login" method="post">
+
+        <input
+                type="text"
+                name="username"
+                placeholder="Username"
+                required>
+
+        <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                required>
+
+        <button type="submit">
+            Login
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+</html>

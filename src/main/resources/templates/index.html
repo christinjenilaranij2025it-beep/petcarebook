@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <title>PetCareBook Dashboard</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+            margin: 0;
+        }
+
+        header {
+            background: #2e7d32;
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            width: 90%;
+            margin: 25px auto;
+        }
+
+        .buttons {
+            margin-bottom: 20px;
+        }
+
+        a {
+            text-decoration: none;
+            padding: 10px 15px;
+            background: #2e7d32;
+            color: white;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            margin-top: 15px;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background: #e8f5e9;
+        }
+
+        h2 {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🐾 PetCareBook</h1>
+    <p>Pet Vaccination Management System</p>
+</header>
+
+<div class="container">
+
+    <div class="buttons">
+        <a href="/pets/add">Register Pet</a>
+        <a href="/vaccinations/add">Add Vaccination</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+    <h2>Registered Pets</h2>
+
+    <table>
+
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Species</th>
+            <th>Breed</th>
+            <th>Date of Birth</th>
+            <th>Owner</th>
+            <th>Actions</th>
+        </tr>
+
+        <tr th:each="pet : ${pets}">
+
+            <td th:text="${pet.id}"></td>
+
+            <td th:text="${pet.name}"></td>
+
+            <td th:text="${pet.species}"></td>
+
+            <td th:text="${pet.breed}"></td>
+
+            <td th:text="${pet.dateOfBirth}"></td>
+
+            <td th:text="${pet.ownerName}"></td>
+
+            <td>
+
+                <a th:href="@{/pets/edit/{id}(id=${pet.id})}">
+                    Edit
+                </a>
+
+                <a th:href="@{/pets/history/{id}(id=${pet.id})}">
+                    History
+                </a>
+
+                <a th:href="@{/pets/delete/{id}(id=${pet.id})}"
+                   onclick="return confirm('Delete this pet?')">
+                    Delete
+                </a>
+
+            </td>
+
+        </tr>
+
+    </table>
+
+
+    <h2>Vaccinations Due Within 7 Days</h2>
+
+    <table>
+
+        <tr>
+            <th>Pet</th>
+            <th>Vaccine</th>
+            <th>Vaccination Date</th>
+            <th>Next Due Date</th>
+        </tr>
+
+        <tr th:each="vaccination : ${upcomingVaccinations}">
+
+            <td th:text="${vaccination.pet.name}"></td>
+
+            <td th:text="${vaccination.vaccineName}"></td>
+
+            <td th:text="${vaccination.vaccinationDate}"></td>
+
+            <td th:text="${vaccination.nextDueDate}"></td>
+
+        </tr>
+
+        <tr th:if="${#lists.isEmpty(upcomingVaccinations)}">
+
+            <td colspan="4">
+                No vaccinations are due within the next 7 days.
+            </td>
+
+        </tr>
+
+    </table>
+
+</div>
+
+</body>
+</html>

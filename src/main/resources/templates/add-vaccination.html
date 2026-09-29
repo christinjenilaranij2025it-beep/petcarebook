@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Add Vaccination</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+        }
+
+        .container {
+            width: 450px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Record Vaccination</h2>
+
+    <form action="/vaccinations/save" method="post">
+
+        <label>Select Pet</label>
+
+        <select name="petId" required>
+
+            <option value="">
+                -- Select Pet --
+            </option>
+
+            <option
+                    th:each="pet : ${pets}"
+                    th:value="${pet.id}"
+                    th:text="${pet.name + ' - ' + pet.species}">
+            </option>
+
+        </select>
+
+
+        <label>Vaccine Name</label>
+
+        <input
+                type="text"
+                name="vaccineName"
+                placeholder="Rabies / DHPP / FVRCP / Booster"
+                required>
+
+
+        <label>Vaccination Date</label>
+
+        <input
+                type="date"
+                name="vaccinationDate"
+                required>
+
+
+        <button type="submit">
+            Save Vaccination
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="/" style="text-decoration:none">
+        ← Back to Dashboard
+    </a>
+
+</div>
+
+</body>
+</html>

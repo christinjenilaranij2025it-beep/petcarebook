@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Register Pet</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+        }
+
+        .container {
+            width: 450px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Register Pet</h2>
+
+    <form th:action="${pet.id == null ? '/pets/save' : '/pets/update/' + pet.id}"
+          th:object="${pet}"
+          method="post">
+
+        <label>Pet Name</label>
+
+        <input
+                type="text"
+                th:field="*{name}"
+                required>
+
+
+        <label>Species</label>
+
+        <input
+                type="text"
+                th:field="*{species}"
+                placeholder="Dog / Cat / Rabbit"
+                required>
+
+
+        <label>Breed</label>
+
+        <input
+                type="text"
+                th:field="*{breed}"
+                required>
+
+
+        <label>Date of Birth</label>
+
+        <input
+                type="date"
+                th:field="*{dateOfBirth}"
+                required>
+
+
+        <label>Owner Name</label>
+
+        <input
+                type="text"
+                th:field="*{ownerName}"
+                required>
+
+
+        <button type="submit">
+            Save Pet
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="/" style="text-decoration:none">
+        ← Back to Dashboard
+    </a>
+
+</div>
+
+</body>
+</html>

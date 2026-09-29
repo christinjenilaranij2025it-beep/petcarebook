@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Vaccination History</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+        }
+
+        .container {
+            width: 90%;
+            margin: 40px auto;
+        }
+
+        .pet-info {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background: #e8f5e9;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Vaccination History</h1>
+
+    <div class="pet-info">
+
+        <h2 th:text="${pet.name}"></h2>
+
+        <p>
+            <strong>Species:</strong>
+            <span th:text="${pet.species}"></span>
+        </p>
+
+        <p>
+            <strong>Breed:</strong>
+            <span th:text="${pet.breed}"></span>
+        </p>
+
+        <p>
+            <strong>Date of Birth:</strong>
+            <span th:text="${pet.dateOfBirth}"></span>
+        </p>
+
+        <p>
+            <strong>Owner:</strong>
+            <span th:text="${pet.ownerName}"></span>
+        </p>
+
+    </div>
+
+
+    <h2>Complete Vaccination History</h2>
+
+    <table>
+
+        <tr>
+            <th>Vaccine</th>
+            <th>Vaccination Date</th>
+            <th>Interval</th>
+            <th>Next Due Date</th>
+            <th>Action</th>
+        </tr>
+
+        <tr th:each="vaccination : ${vaccinations}">
+
+            <td th:text="${vaccination.vaccineName}"></td>
+
+            <td th:text="${vaccination.vaccinationDate}"></td>
+
+            <td th:text="${vaccination.intervalDays + ' days'}"></td>
+
+            <td th:text="${vaccination.nextDueDate}"></td>
+
+            <td>
+                <a
+                        th:href="@{/vaccinations/delete/{id}(id=${vaccination.id})}"
+                        onclick="return confirm('Delete this vaccination?')">
+                    Delete
+                </a>
+            </td>
+
+        </tr>
+
+        <tr th:if="${#lists.isEmpty(vaccinations)}">
+
+            <td colspan="5">
+                No vaccination history available.
+            </td>
+
+        </tr>
+
+    </table>
+
+    <br>
+
+    <a href="/">
+        ← Back to Dashboard
+    </a>
+
+</div>
+
+</body>
+</html>
